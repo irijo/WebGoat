@@ -39,6 +39,7 @@ public class ProfileZipSlip extends ProfileUploadBase {
     }
 
     private AttackResult processZipUpload(MultipartFile file) {
+       
         try {
             var tmpZipDirectory = Files.createTempDirectory(getWebSession().getUserName());
             var uploadDirectory = new File(getWebGoatHomeDirectory(), "/PathTraversal/" + getWebSession().getUserName());
