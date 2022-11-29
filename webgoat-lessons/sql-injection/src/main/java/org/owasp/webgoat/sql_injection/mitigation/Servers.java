@@ -102,7 +102,9 @@ public class Servers {
         List<Server> servers = new ArrayList<>();
         try (
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select id, hostname, ip, mac, status, description from servers  where status <> \'out of order\' order by " + column)) {
+            String queryTest = "select id, hostname, ip, mac, status, description from servers  where status <> \'out of order\' order by COLUMN=?";
+            statement.setString(1, column)
+            PreparedStatement preparedStatement = connection.prepareStatement(queryTest) {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Server server = new Server(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
